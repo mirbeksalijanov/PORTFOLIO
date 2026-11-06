@@ -1,0 +1,776 @@
+/* ==========================================================
+   Портфолио Мирбека Салижанова
+   Содержание:
+   1. Переменные (цвета, шрифты, отступы)
+   2. Базовые стили
+   3. Шапка и меню
+   4. Главный экран (hero)
+   5. Бегущая лента
+   6. Обо мне
+   7. Навыки
+   8. Проекты
+   9. Контакты и форма
+   10. Подвал
+   11. Модальное окно
+   12. Анимация появления
+   13. Мобильная версия
+   ========================================================== */
+
+
+/* ---------- 1. Переменные ---------- */
+:root {
+  /* Цвета */
+  --orange: #FF7A1A;
+  --red: #E5231B;
+  --white: #FFFFFF;
+  --cream: #FFF4EC;
+  --ink: #2A1410;
+
+  /* Светлая тема */
+  --bg: var(--white);
+  --text: var(--ink);
+  --card: var(--cream);
+  --line: rgba(42, 20, 16, 0.14);
+
+  /* Градиент */
+  --grad: linear-gradient(135deg, var(--orange), var(--red));
+
+  /* Шрифты */
+  --font-d: 'Unbounded', system-ui, sans-serif;
+  --font-b: 'Manrope', system-ui, sans-serif;
+
+  /* Размеры */
+  --pad: clamp(20px, 5vw, 72px);
+  --r: 20px;
+}
+
+/* Тёмная тема: меняем только цвета */
+:root[data-theme="dark"] {
+  --bg: #1B0D0A;
+  --text: #FFF4EC;
+  --card: #2B1511;
+  --line: rgba(255, 244, 236, 0.16);
+}
+
+
+/* ---------- 2. Базовые стили ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-b);
+  font-size: 17px;
+  line-height: 1.65;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  transition: background 0.4s, color 0.4s;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+h2 {
+  font-family: var(--font-d);
+  font-weight: 800;
+  font-size: clamp(28px, 4.5vw, 48px);
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+h3 {
+  font-family: var(--font-d);
+  font-weight: 500;
+  font-size: 19px;
+}
+
+/* Рамка при навигации с клавиатуры */
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* Ссылка «Перейти к содержимому» (видна только при фокусе) */
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--red);
+  color: #fff;
+}
+
+.skip:focus {
+  left: 8px;
+}
+
+/* Свечение, которое следует за курсором */
+.glow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 122, 26, 0.28), transparent 65%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.section {
+  max-width: 1200px;
+  margin: auto;
+  padding: clamp(60px, 9vw, 120px) var(--pad);
+}
+
+
+/* ---------- 3. Шапка и меню ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px var(--pad);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: var(--grad);
+  color: #fff;
+  font-family: var(--font-d);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.nav {
+  margin-left: auto;
+}
+
+.nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav a {
+  position: relative;
+  padding: 4px 0;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* Линия под пунктом меню */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+
+.nav a:hover::after,
+.nav a.is-current::after {
+  transform: scaleX(1);
+}
+
+/* Переключатель темы */
+.theme {
+  position: relative;
+  width: 54px;
+  height: 30px;
+  border: 2px solid var(--orange);
+  border-radius: 30px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.theme-dot {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--grad);
+  transition: transform 0.3s;
+}
+
+.theme[aria-pressed="true"] .theme-dot {
+  transform: translateX(24px);
+}
+
+/* Кнопка-бургер (видна только на телефоне) */
+.burger {
+  position: relative;
+  display: none;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.burger span {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--text);
+  transition: 0.3s;
+}
+
+.burger span:first-child {
+  top: 16px;
+}
+
+.burger span:last-child {
+  top: 25px;
+}
+
+/* Бургер превращается в крестик */
+.burger[aria-expanded="true"] span:first-child {
+  top: 21px;
+  transform: rotate(45deg);
+}
+
+.burger[aria-expanded="true"] span:last-child {
+  top: 21px;
+  transform: rotate(-45deg);
+}
+
+
+/* ---------- 4. Главный экран ---------- */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 88vh;
+  padding: 60px var(--pad);
+  overflow: hidden;
+}
+
+/* Вращающееся «солнце» */
+.sun {
+  position: absolute;
+  right: -12vw;
+  top: 50%;
+  z-index: -1;
+  width: min(60vw, 640px);
+  aspect-ratio: 1;
+  translate: 0 -50%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--orange), var(--red), #FFB36B, var(--orange));
+  filter: blur(2px);
+  opacity: 0.9;
+  animation: spin 18s linear infinite;
+}
+
+.sun::after {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  background: var(--bg);
+  transition: background 0.4s;
+}
+
+@keyframes spin {
+  to { rotate: 360deg; }
+}
+
+.hero-hi {
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.hero-name {
+  font-family: var(--font-d);
+  font-weight: 800;
+  font-size: clamp(40px, 11vw, 150px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+/* Каждое слово имени — отдельная строка */
+.hero-name > span {
+  display: block;
+  overflow: hidden;
+}
+
+/* Буквы появляются снизу вверх (их создаёт JavaScript) */
+.hero-name .ch {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: rise 0.8s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes rise {
+  to { transform: none; }
+}
+
+/* Фамилия — буквы с градиентом */
+.hero-name > span:nth-child(2) .ch {
+  padding-bottom: 0.08em;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-role {
+  max-width: 520px;
+  margin: 28px 0;
+  font-size: 19px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* Кнопки */
+.btn {
+  display: inline-block;
+  padding: 15px 28px;
+  border: 2px solid transparent;
+  border-radius: 50px;
+  font: 700 16px var(--font-b);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn-main {
+  background: var(--grad);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(229, 35, 27, 0.3);
+}
+
+.btn-line {
+  border-color: var(--red);
+  color: var(--text);
+}
+
+
+/* ---------- 5. Бегущая лента ---------- */
+.ribbon {
+  margin: 20px -10px;
+  padding: 16px 0;
+  background: var(--grad);
+  color: #fff;
+  overflow: hidden;
+  transform: rotate(-1.5deg);
+}
+
+.ribbon-track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  font-family: var(--font-d);
+  font-weight: 800;
+  font-size: 22px;
+  animation: slide 24s linear infinite;
+}
+
+@keyframes slide {
+  to { transform: translateX(-50%); }
+}
+
+
+/* ---------- 6. Обо мне ---------- */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: center;
+}
+
+.about-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--r) var(--r) 120px var(--r);
+  box-shadow: 16px 16px 0 var(--orange);
+}
+
+.about p + p {
+  margin-top: 14px;
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin-top: 28px;
+  list-style: none;
+}
+
+.facts strong {
+  display: block;
+  font-family: var(--font-d);
+  font-size: 28px;
+  color: var(--red);
+}
+
+
+/* ---------- 7. Навыки ---------- */
+.skills {
+  display: grid;
+  gap: 22px;
+  max-width: 720px;
+  list-style: none;
+}
+
+.skill-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.bar {
+  height: 12px;
+  border-radius: 12px;
+  background: var(--card);
+  overflow: hidden;
+}
+
+/* Полоска растёт, когда блок появляется на экране (класс .in) */
+.bar i {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 12px;
+  background: var(--grad);
+  transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.in .bar i {
+  width: var(--w);
+}
+
+
+/* ---------- 8. Проекты ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 420px);
+  gap: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 16px 22px;
+  border-radius: var(--r);
+  background: var(--card);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: rotate(-1.2deg) translateY(-6px);
+  box-shadow: 0 18px 36px rgba(229, 35, 27, 0.18);
+}
+
+.card-art {
+  height: 150px;
+  margin-bottom: 6px;
+  border-radius: 14px;
+  background: var(--grad);
+}
+
+.more {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--red);
+  font: 700 16px var(--font-b);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+
+/* ---------- 9. Контакты и форма ---------- */
+.contact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 5vw, 72px);
+}
+
+.links {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+  font-weight: 700;
+  list-style: none;
+}
+
+.links a {
+  color: var(--red);
+}
+
+.form {
+  display: grid;
+  gap: 18px;
+  padding: clamp(20px, 4vw, 36px);
+  border-radius: var(--r);
+  background: var(--card);
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+label {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--orange);
+  outline: none;
+}
+
+/* Поле с ошибкой (класс .bad ставит JavaScript) */
+.field.bad input,
+.field.bad textarea {
+  border-color: var(--red);
+}
+
+.err {
+  min-height: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.ok {
+  font-weight: 700;
+  color: #1E8E3E;
+}
+
+
+/* ---------- 10. Подвал ---------- */
+.footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 32px var(--pad);
+  border-top: 1px solid var(--line);
+}
+
+
+/* ---------- 11. Модальное окно ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(27, 13, 10, 0.7);
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: 32px;
+  border-top: 8px solid var(--red);
+  border-radius: var(--r);
+  background: var(--bg);
+  color: var(--text);
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+.modal-box p {
+  margin-top: 12px;
+}
+
+.m-tech {
+  font-weight: 700;
+  color: var(--red);
+}
+
+.modal-close {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font-size: 32px;
+  cursor: pointer;
+}
+
+
+/* ---------- 12. Анимация появления при прокрутке ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s, transform 0.7s;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ---------- 13. Мобильная версия ---------- */
+@media (max-width: 820px) {
+  .burger {
+    display: block;
+  }
+
+  .theme {
+    order: 3;
+  }
+
+  .header {
+    flex-wrap: wrap;
+  }
+
+  /* Меню раскрывается вниз под шапкой */
+  .nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    max-height: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    transition: max-height 0.35s;
+  }
+
+  .nav.open {
+    max-height: 300px;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: 8px var(--pad);
+  }
+
+  .nav a {
+    display: block;
+    padding: 14px 0;
+  }
+
+  .about,
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  .about-photo {
+    max-width: 300px;
+  }
+
+  .hero {
+    min-height: 80vh;
+  }
+
+  .sun {
+    right: -30vw;
+    opacity: 0.35;
+  }
+}
+
+
+/* ---------- Для тех, кто отключил анимации в системе ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-name .ch {
+    transform: none;
+  }
+
+  .bar i {
+    width: var(--w);
+  }
+}
