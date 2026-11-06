@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Мирбек Салижанов">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF8A1F"/><stop offset="1" stop-color="#E5231B"/></linearGradient></defs>
-<rect width="400" height="400" fill="url(#g)"/>
-<circle cx="200" cy="155" r="68" fill="#fff"/>
-<path d="M60 400c0-92 62-150 140-150s140 58 140 150z" fill="#fff"/>
-<text x="200" y="178" text-anchor="middle" font-family="Arial" font-weight="800" font-size="56" fill="#E5231B">МС</text>
-</svg>
