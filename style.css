@@ -17,7 +17,7 @@
    ========================================================== */
 
 
-/* ---------- 1. Переменные ---------- */
+/*  Переменные */
 :root {
   /* Цвета */
   --orange: #FF7A1A;
@@ -53,7 +53,7 @@
 }
 
 
-/* ---------- 2. Базовые стили ---------- */
+/* Базовые стили */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -104,7 +104,7 @@ h3 {
   outline-offset: 3px;
 }
 
-/* Ссылка «Перейти к содержимому» (видна только при фокусе) */
+/* Ссылка «Перейти к содержимому»*/
 .skip {
   position: absolute;
   left: -999px;
@@ -120,7 +120,7 @@ h3 {
   left: 8px;
 }
 
-/* Свечение, которое следует за курсором */
+/* Свечение которое следует за курсором */
 .glow {
   position: fixed;
   left: 0;
@@ -147,7 +147,7 @@ main {
 }
 
 
-/* ---------- 3. Шапка и меню ---------- */
+/*Шапка и меню*/
 .header {
   position: sticky;
   top: 0;
@@ -233,7 +233,7 @@ main {
   transform: translateX(24px);
 }
 
-/* Кнопка-бургер (видна только на телефоне) */
+/* Кнопка-бургер только на телефон*/
 .burger {
   position: relative;
   display: none;
@@ -275,7 +275,7 @@ main {
 }
 
 
-/* ---------- 4. Главный экран ---------- */
+/*Главный экран*/
 .hero {
   position: relative;
   display: flex;
@@ -286,8 +286,8 @@ main {
   overflow: hidden;
 }
 
-/* Вращающееся «солнце» */
-.sun {
+/* Вращающееся колечко*/
+.ring {
   position: absolute;
   right: -12vw;
   top: 50%;
@@ -302,7 +302,7 @@ main {
   animation: spin 18s linear infinite;
 }
 
-.sun::after {
+.ring::after {
   content: "";
   position: absolute;
   inset: 14%;
@@ -336,7 +336,7 @@ main {
   overflow: hidden;
 }
 
-/* Буквы появляются снизу вверх (их создаёт JavaScript) */
+/* Буквы появляются снизу вверх */
 .hero-name .ch {
   display: inline-block;
   transform: translateY(110%);
@@ -347,7 +347,7 @@ main {
   to { transform: none; }
 }
 
-/* Фамилия — буквы с градиентом */
+/* Фамилия и буквы с градиентом */
 .hero-name > span:nth-child(2) .ch {
   padding-bottom: 0.08em;
   background: var(--grad);
@@ -396,7 +396,7 @@ main {
 }
 
 
-/* ---------- 5. Бегущая лента ---------- */
+/*Бегущая лента*/
 .ribbon {
   margin: 20px -10px;
   padding: 16px 0;
@@ -421,7 +421,7 @@ main {
 }
 
 
-/* ---------- 6. Обо мне ---------- */
+/*Обо мне*/
 .about {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
@@ -456,7 +456,7 @@ main {
 }
 
 
-/* ---------- 7. Навыки ---------- */
+/*7. Навыки*/
 .skills {
   display: grid;
   gap: 22px;
@@ -478,7 +478,7 @@ main {
   overflow: hidden;
 }
 
-/* Полоска растёт, когда блок появляется на экране (класс .in) */
+/* Полоска растёт когда блок появляется на экране  */
 .bar i {
   display: block;
   width: 0;
@@ -493,7 +493,7 @@ main {
 }
 
 
-/* ---------- 8. Проекты ---------- */
+/* 8. Проекты */
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 420px);
@@ -536,7 +536,7 @@ main {
 }
 
 
-/* ---------- 9. Контакты и форма ---------- */
+/* 9. Контакты и форма */
 .contact {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -590,7 +590,7 @@ textarea:focus {
   outline: none;
 }
 
-/* Поле с ошибкой (класс .bad ставит JavaScript) */
+/* ОШИБАЧКА */
 .field.bad input,
 .field.bad textarea {
   border-color: var(--red);
@@ -609,7 +609,7 @@ textarea:focus {
 }
 
 
-/* ---------- 10. Подвал ---------- */
+/* Футер */
 .footer {
   position: relative;
   z-index: 1;
@@ -622,7 +622,7 @@ textarea:focus {
 }
 
 
-/* ---------- 11. Модальное окно ---------- */
+/* 11. Модальное окно */
 .modal {
   position: fixed;
   inset: 0;
@@ -679,7 +679,7 @@ textarea:focus {
 }
 
 
-/* ---------- 12. Анимация появления при прокрутке ---------- */
+/* Анимация появления при прокрутке */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -692,7 +692,7 @@ textarea:focus {
 }
 
 
-/* ---------- 13. Мобильная версия ---------- */
+/* Mobile версия */
 @media (max-width: 820px) {
   .burger {
     display: block;
@@ -754,7 +754,7 @@ textarea:focus {
 }
 
 
-/* ---------- Для тех, кто отключил анимации в системе ---------- */
+/* Для тех, кто не любит анимации*/
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
